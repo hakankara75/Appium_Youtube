@@ -1,5 +1,6 @@
 src/Apps/
 target/
+deviceConfig.properties
 .gitignore
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
