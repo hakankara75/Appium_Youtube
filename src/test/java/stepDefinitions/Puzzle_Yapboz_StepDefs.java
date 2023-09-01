@@ -3,6 +3,7 @@ package stepDefinitions;
 
 import androidScreen.Puzzle_Yapboz_Screen;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
@@ -22,6 +23,11 @@ public class Puzzle_Yapboz_StepDefs {
 
     public Puzzle_Yapboz_StepDefs() throws MalformedURLException {
     }
+    @Given("Kitap Yurdu sitesine gidildi")
+    public void kitapYurduSitesineGidildi() {
+        Driver.getDriver();
+    }
+
 
     @Then("Kitap Yurdu sitesine gidildigi dogrulandi")
     public void kitap_yurdu_sitesine_gidildigi_dogrulandi() {
@@ -55,7 +61,7 @@ public class Puzzle_Yapboz_StepDefs {
                 kitapYurdu.altiKirksekizParcaTitle.getText().contains("6-48 PARÇA");
                 break;
                 case "Ahşap Puzzle (1000 Parça)":
-                kitapYurdu.ahsapBinParcaText.getText().contains("Ahşap Puzzle (1000 Parça)");
+                kitapYurdu.ahsapBinParcaText.getText().contains("1.000 Parça Ahşap Puzzle");
                 break;
                 case "Türk Sanatı Serisi":
                 kitapYurdu.turkSanatEseriText.getText().contains("Türk Sanatı Serisi");
@@ -73,8 +79,8 @@ public class Puzzle_Yapboz_StepDefs {
             case "Puzzle Yapboz":
             kitapYurdu.puzzleYapboz.click();
                 break;
-            case "Ahsap Puzzle":
-            kitapYurdu.ahsapPuzzleMenu.click();
+            case "Ahşap Puzzle":
+                    kitapYurdu.ahsapPuzzleMenu.click();
                 break;
                 case "Türk Sanatı Serisi":
                 kitapYurdu.turkSanatEseri.click();
@@ -171,9 +177,8 @@ public class Puzzle_Yapboz_StepDefs {
         kitapYurdu.kaplumbagaTerbiyecisi.click();
     }
 
-
-    @And("Urunu slip yapti")
-    public void urunuSlipYapti() throws InterruptedException {
+    @And("Urunu swipe yapti")
+    public void urunuSwipeYapti() throws InterruptedException {
         scrollHorizontal(Driver.getDriver(), 5);
     }
 }

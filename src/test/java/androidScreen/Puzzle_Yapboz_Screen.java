@@ -16,9 +16,9 @@ public class Puzzle_Yapboz_Screen extends ApiDemosScreen{
     public WebElement tumKategoriler;
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Puzzle - Yapboz\")")
     public WebElement puzzleYapbozTitle;
-    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle \")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle\")")
     public WebElement ahsapPuzzleMenu;
-    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle \")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle\")")
     public WebElement ahsapPuzzleTitle;
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"300 Parça\")")
     public WebElement ucyuzParcaTitle;
@@ -34,9 +34,9 @@ public class Puzzle_Yapboz_Screen extends ApiDemosScreen{
     public WebElement altiKirksekizParca;
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"6-48 PARÇA\")")
     public WebElement altiKirksekizParcaTitle;
-    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle (1000 Parça)\")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"1.000 Parça Ahşap Puzzle\")")
     public WebElement ahsapBinParca;
-    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle (1000 Parça)\")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"1.000 Parça Ahşap Puzzle\")")
     public WebElement ahsapBinParcaText;
     @AndroidFindBy(xpath = "(//android.widget.ImageView[@resource-id='com.mobisoft.kitapyurdu:id/productImage'])[1]")
     public WebElement kaplumbagaTerbiyecisi;

@@ -9,7 +9,7 @@ Feature: Puzzle_Yapboz_Menusu
     And "Puzzle Yapboz" bolumunde oldugu dogrulandi
 
   Scenario: Ahsap Puzzle Menusu Testi
-    Given "Ahsap Puzzle" menusu tiklandi
+    Given "Ahşap Puzzle" menusu tiklandi
     When "Ahşap Puzzle" bolumunde oldugu dogrulandi
     Then "300 Parça" menusu tiklandi
     And "300 Parça" bolumunde oldugu dogrulandi
@@ -25,11 +25,11 @@ Feature: Puzzle_Yapboz_Menusu
     And Sayfada "yazilan" sayida urun oldugu dogrulandi
   @puzzle
   Scenario: Swipe Testi
-    Given "Ahsap Puzzle" menusu tiklandi
-    When "Ahsap Puzzle" bolumunde oldugu dogrulandi
+    Given "Ahşap Puzzle" menusu tiklandi
+    When "Ahşap Puzzle" bolumunde oldugu dogrulandi
     Then "Ahşap Puzzle (1000 Parça)" menusu tiklandi
     And "Ahşap Puzzle (1000 Parça)" bolumunde oldugu dogrulandi
     Then "Türk Sanatı Serisi" menusu tiklandi
     And "Türk Sanatı Serisi" bolumunde oldugu dogrulandi
     And Urunu tikladi
-    And Urunu slip yapti
+    And Urunu swipe yapti
