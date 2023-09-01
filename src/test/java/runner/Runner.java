@@ -9,11 +9,10 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty",
                 "json:target/cucumber.json",
-                "utilities.formatter.PrettyReports:target/cucumber-pretty-reports"
         },
-        features = "src/test/resources/features",
+        features = "src/test/java/resources/features",
         glue = {"stepDefinitions","runner"},
-        tags = "",
+        tags = "@puzzle",
         dryRun = false
 )
 public class Runner {

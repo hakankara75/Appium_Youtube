@@ -1,6 +1,6 @@
 package iosScreen;
 
-import screens.androidScreen.ApiDemosScreen;
+import androidScreen.ApiDemosScreen;
 
 import java.net.MalformedURLException;
 

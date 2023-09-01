@@ -4,7 +4,9 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class Puzzle_Yapboz_Screen extends KitapYurdu{
+import java.net.MalformedURLException;
+
+public class Puzzle_Yapboz_Screen extends ApiDemosScreen{
 
     @FindBy(xpath = "(//android.widget.ImageView[@resource-id='com.mobisoft.kitapyurdu:id/icon'])[3]")
     public WebElement kategoriler;
@@ -42,4 +44,7 @@ public class Puzzle_Yapboz_Screen extends KitapYurdu{
     public WebElement turkSanatEseri;
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Türk Sanatı Serisi\")")
     public WebElement turkSanatEseriText;
+
+    public Puzzle_Yapboz_Screen() throws MalformedURLException {
+    }
 }

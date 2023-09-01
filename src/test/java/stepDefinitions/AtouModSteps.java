@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import androidScreen.AtouModScreen;
 import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -7,14 +8,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import screens.androidScreen.AtouModScreen;
+import utilities.Driver;
 import utilities.ReusableMethods;
 
 import java.net.MalformedURLException;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static utilities.Driver.driver;
+
 
 public class AtouModSteps extends ReusableMethods {
     static protected AtouModScreen api;
@@ -95,7 +97,7 @@ public class AtouModSteps extends ReusableMethods {
     @And("Daha sonra bak butonuna tikla")
     public void dahaSonraBakButonunaTikla() throws InterruptedException, MalformedURLException {
 
-        TouchAction touchAction = new TouchAction((PerformsTouchActions) driver);
+        TouchAction touchAction = new TouchAction((PerformsTouchActions) Driver.getDriver());
         PointOption point = PointOption.point(620, 2150);
         touchAction.tap(point).perform();
 

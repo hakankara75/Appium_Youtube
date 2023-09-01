@@ -1,24 +1,28 @@
 package stepDefinitions;
 
+
+import androidScreen.Puzzle_Yapboz_Screen;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import screens.Screens;
-import screens.androidScreen.Puzzle_Yapboz_Screen;
-import utils.Driver;
-
+import utilities.Driver;
+import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static utils.ReusableMethods.*;
+import static utilities.ReusableMethods.*;
 
 
-public class Puzzle_Yapboz_StepDefs extends Screens {
+public class Puzzle_Yapboz_StepDefs {
 
     Puzzle_Yapboz_Screen kitapYurdu=new Puzzle_Yapboz_Screen();
+
+    public Puzzle_Yapboz_StepDefs() throws MalformedURLException {
+    }
+
     @Then("Kitap Yurdu sitesine gidildigi dogrulandi")
     public void kitap_yurdu_sitesine_gidildigi_dogrulandi() {
 

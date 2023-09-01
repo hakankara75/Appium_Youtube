@@ -24,7 +24,7 @@ Feature: Puzzle_Yapboz_Menusu
     And "6-48 PARÇA" bolumunde oldugu dogrulandi
     And Sayfada "yazilan" sayida urun oldugu dogrulandi
   @puzzle
-  Scenario: Slip Testi
+  Scenario: Swipe Testi
     Given "Ahsap Puzzle" menusu tiklandi
     When "Ahsap Puzzle" bolumunde oldugu dogrulandi
     Then "Ahşap Puzzle (1000 Parça)" menusu tiklandi

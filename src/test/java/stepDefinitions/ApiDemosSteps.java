@@ -9,6 +9,7 @@ import utilities.ReusableMethods;
 import java.net.MalformedURLException;
 
 import static org.junit.Assert.assertTrue;
+import static stepDefinitions.AtouModSteps.api;
 
 public class ApiDemosSteps extends ReusableMethods {
 

@@ -1,13 +1,16 @@
 package stepDefinitions;
 
+import androidScreen.ApiDemosScreen;
+import androidScreen.N11Screen;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import screens.androidScreen.N11Screen;
 import utilities.ReusableMethods;
 
 import java.net.MalformedURLException;
@@ -29,6 +32,7 @@ public class N11Steps {
     public void clickOnTheSearchBox() throws MalformedURLException {
         waitToBeVisible(api.searchBox, Duration.ofSeconds(30));
         api.searchBox.click();
+
 
     }
     @And("Type {string} in the search box")
@@ -151,5 +155,7 @@ public class N11Steps {
                 break;
         }
     }
+
+
 
 }

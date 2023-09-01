@@ -42,7 +42,7 @@ public class Driver {
 
 
     private static UiAutomator2Options options;
-    private static AppiumDriver driver;
+    static AppiumDriver driver;
 
     public static AppiumDriver getDriver() {
 

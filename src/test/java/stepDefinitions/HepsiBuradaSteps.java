@@ -1,10 +1,11 @@
 package stepDefinitions;
 
+import androidScreen.HepsiBuradaScreen;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import screens.androidScreen.HepsiBuradaScreen;
+
 import utilities.Driver;
 
 import java.net.MalformedURLException;
@@ -45,7 +46,7 @@ public class HepsiBuradaSteps extends Driver{
     public void sporGiyimBolumundeOlunduguDogrulandi() throws InterruptedException, MalformedURLException {
         assertTrue(api.sporGiyimBaslik.isDisplayed());
 
-        scroll(driver,1);
+        scroll(Driver.getDriver(),1);
     }
 
 

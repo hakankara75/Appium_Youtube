@@ -13,15 +13,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
+import static utilities.Driver.driver;
 
 public class ReusableMethods {
 
-
+    public static void scrollTo(String textFromOutSide) throws MalformedURLException {
+        AppiumBy.ByAndroidUIAutomator permissionElement = new AppiumBy.ByAndroidUIAutomator("new UiScrollable"+
+                "(new UiSelector().scrollable(true).instance(0)."+
+                "scrollIntoView(new UiSelector()"+".textMatches(\""+textFromOutSide+"\").instance(0)");
+        driver.findElement(permissionElement);
+    }
     public static void tapOnElementWithText(String text) {
         List<WebElement> mobileElementList = Driver.getDriver().findElements(By.className("android.widget.TextView"));
         for (WebElement page: mobileElementList) {
@@ -400,7 +407,66 @@ public class ReusableMethods {
 
         Assert.assertEquals(actualElementSize , expectedElementSize);
     }
+    /**
+     * bu metot UiSelector cinsinden locate dondurur
+     * @param text locate alinacak elementin text attribute icinde yazan metindir
+     * @return
+     */
+    public static By locateElementByText(String text){
+        return AppiumBy.androidUIAutomator("new UiSelector().text(\""+text+"\")");
+    }
 
+    /**
+     * Element gorunur olmadigi surece ve sayfa sonuna gelinmedigi surece scroll down yapma metodu
+     * @param element yerine android element locati verilmeli
+     */
+    public static void scrollForMobile(WebElement element) throws MalformedURLException {
+        String previousPageSource="";
+        while(isElementNotEnabled(element) && isNotEndOfPage(previousPageSource)){
+            previousPageSource=Driver.getDriver().getPageSource();
+            performScroll();
+
+        }
+    }
+    public static void performScroll() throws MalformedURLException {
+        Dimension size= Driver.getDriver().manage().window().getSize();
+        int startX= size.getWidth()/2;
+        int endX= size.getWidth()/2;
+        int startY= size.getHeight()/2;
+        int endY= (int)(size.getWidth()*0.25);
+        performScrollUsingSequence(startX, startY, endX, endY);
+    }
+    private static void performScrollUsingSequence(int startX, int startY, int endX, int endY) throws MalformedURLException {
+        PointerInput finger=new PointerInput(PointerInput.Kind.TOUCH, "first-finger");
+        Sequence sequence=new Sequence(finger,0)
+                .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY))
+                .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), endX, endY))
+                .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        ((AppiumDriver)(Driver.getDriver())).perform(Collections.singletonList(sequence));
+    }
+
+    /**
+     * elementi listin icine alıp, listin boyutunu olcer. list bos ise true dondurecek.scrollForMobile() ile kullanilir
+     * @param element element locate yazilmali
+     * @return true yada false doner
+     */
+    private static boolean isElementNotEnabled(WebElement element) throws MalformedURLException {
+        List<WebElement> elements=Driver.getDriver().findElements((By) element);
+        boolean enabled;
+        if (elements.size() <1) enabled = true;
+        else enabled = false;
+        return enabled;
+    }
+
+    /**
+     * bir onceki sayfa pageSource ile simdiki aynı mı diye kontrol eder
+     * @param previousPageSource
+     * @return
+     */
+    private static boolean isNotEndOfPage(String previousPageSource) throws MalformedURLException {
+        return ! previousPageSource.equals(driver.getPageSource());
+    }
 
 }
 
