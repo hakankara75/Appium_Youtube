@@ -186,7 +186,7 @@ public class ReusableMethods {
         Dimension size = driver.manage().window().getSize();
         int startX = size.getWidth() / 2 ;
         int startY = size.getHeight() / 2 ;
-        int endX = (int) (size.getWidth()*0.25);
+        int endX = (int) (size.getWidth()*0.01);
         int endY = startY;
         //buradaki 0,25 şu şekildedir; imleç ekranın ortasında yani 0,50 de,
         // x ekseninde 0,25 seçtiğimizde 0,50 den 0,25 e çekiyor yani sola  kayıyor.
