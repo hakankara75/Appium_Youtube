@@ -1,7 +1,7 @@
 package stepDefinitions;
 
-
 import androidScreen.Puzzle_Yapboz_Screen;
+import androidScreen.Screens;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,30 +9,31 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utilities.Driver;
+
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.assertTrue;
 import static utilities.ReusableMethods.*;
 
 
-public class Puzzle_Yapboz_StepDefs {
+public class Puzzle_Yapboz_StepDefs extends Screens {
 
     Puzzle_Yapboz_Screen kitapYurdu=new Puzzle_Yapboz_Screen();
 
     public Puzzle_Yapboz_StepDefs() throws MalformedURLException {
     }
     @Given("Kitap Yurdu sitesine gidildi")
-    public void kitapYurduSitesineGidildi() {
+    public void kitap_yurdu_sitesine_gidildi() {
         Driver.getDriver();
     }
-
-
     @Then("Kitap Yurdu sitesine gidildigi dogrulandi")
     public void kitap_yurdu_sitesine_gidildigi_dogrulandi() {
 
-        Driver.getDriver();
+        assertTrue(kitapYurdu.logo.isDisplayed());
     }
 
     @When("Kategoriler ikonu tiklandi")
@@ -44,6 +45,9 @@ public class Puzzle_Yapboz_StepDefs {
         switch (string){
             case "Kategoriler":
                 kitapYurdu.tumKategoriler.getText().contains("Kategoriler");
+                break;
+                case "Şehirler ve Yapılar Serisi":
+                kitapYurdu.sehirlerYapilarTitle.getText().contains("Kategoriler");
                 break;
                 case "Puzzle Yapboz":
                kitapYurdu.puzzleYapbozTitle.getText().contains("Puzzle");
@@ -79,18 +83,19 @@ public class Puzzle_Yapboz_StepDefs {
             case "Puzzle Yapboz":
             kitapYurdu.puzzleYapboz.click();
                 break;
+                case "Şehirler ve Yapılar Serisi":
+                kitapYurdu.sehirlerYapilar.click();
+                break;
+                case "Panaromik":
+                kitapYurdu.panaromik.click();
+                break;
             case "Ahşap Puzzle":
-                    kitapYurdu.ahsapPuzzleMenu.click();
+            kitapYurdu.ahsapPuzzleMenu.click();
                 break;
                 case "Türk Sanatı Serisi":
                 kitapYurdu.turkSanatEseri.click();
                 break;
             case "300 Parça":
-               try {
-                   scroll(Driver.getDriver(),1);
-               }finally {
-                   scroll(Driver.getDriver(),1);
-               }
             kitapYurdu.ucyuzParcaMenu.click();
                 break;
             case "Lava":
@@ -106,7 +111,7 @@ public class Puzzle_Yapboz_StepDefs {
                 case "6-48 PARÇA":
                 kitapYurdu.altiKirksekizParca.click();
                 break;
-                case "Ahşap Puzzle (1000 Parça)":
+                case "1.000 Parça Ahşap Puzzle":
                 kitapYurdu.ahsapBinParca.click();
                 break;
             default:
@@ -136,10 +141,11 @@ public class Puzzle_Yapboz_StepDefs {
 
     @And("Sayfada {string} sayida urun oldugu dogrulandi")
     public void sayfadaSayidaUrunOlduguDogrulandi(String text) throws InterruptedException {
-            String bolumBasligi= kitapYurdu.altiKirksekizParca.getText();
-        System.out.println("bolumBasligi = " + bolumBasligi);
+        String bolumBasligi = Driver.getDriver().findElement(By.xpath("//android.widget.TextView[@text='"+text+"']")).getAttribute("text");
         if (bolumBasligi.equals("6-48 PARÇA")) {
             urunDogrula("//android.widget.TextView[@text='12 ürün listelendi']");
+        } else if (bolumBasligi.equals("Şehirler ve Yapılar Serisi")) {
+            urunDogrula("//android.widget.TextView[@text='17 ürün listelendi']");
         }else {
            // "Lava":
             Set<String > elements= new HashSet<>();
@@ -166,10 +172,6 @@ public class Puzzle_Yapboz_StepDefs {
 
         }
 
-
-
-
-
     }
 
     @And("Urunu tikladi")
@@ -177,9 +179,31 @@ public class Puzzle_Yapboz_StepDefs {
         kitapYurdu.kaplumbagaTerbiyecisi.click();
     }
 
+
     @And("Urunu swipe yapti")
     public void urunuSwipeYapti() throws InterruptedException {
         scrollHorizontal(Driver.getDriver(), 5);
+    }
+
+    @And("Sayfada kac urun oldugu yazdirildi")
+    public void sayfadaKacUrunOlduguYazdirildi() throws InterruptedException {
+        List<WebElement> urunlerWebElements;
+        List<String> urunListesi = new ArrayList<>();
+        int a = 0;
+        int b = 0;
+        do {
+            urunlerWebElements = Driver.getDriver().findElements(By.id("com.mobisoft.kitapyurdu:id/textViewProductName"));
+            a = urunListesi.size();
+            for (int i = 0; i < urunlerWebElements.size(); i++) {
+                if (!urunListesi.contains(urunlerWebElements.get(i).getText())) {
+                    urunListesi.add(urunlerWebElements.get(i).getText());
+                }
+            }
+            scroll(Driver.getDriver(), 1);
+            b = urunListesi.size();
+        } while (a < b);
+        System.out.println("TOPLAM URUN SAYISI: " + urunListesi.size());
+        urunListesi.forEach(System.out::println);
     }
 }
 

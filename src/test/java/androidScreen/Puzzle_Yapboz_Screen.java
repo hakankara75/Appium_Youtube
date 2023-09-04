@@ -20,9 +20,9 @@ public class Puzzle_Yapboz_Screen extends ApiDemosScreen{
     public WebElement ahsapPuzzleMenu;
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Ahşap Puzzle\")")
     public WebElement ahsapPuzzleTitle;
-    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"300 Parça\")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"300 Parça Ahşap Puzzle\")")
     public WebElement ucyuzParcaTitle;
-    @FindBy( xpath= "(//android.view.ViewGroup[@resource-id='com.mobisoft.kitapyurdu:id/btnCategoryName'])[14]")
+    @FindBy( xpath= "(//android.view.ViewGroup[@resource-id='com.mobisoft.kitapyurdu:id/btnCategoryName'])[8]")
     public WebElement ucyuzParcaMenu;
     @FindBy( xpath= "//android.widget.TextView[@text='Lava']")
     public WebElement lava;
@@ -44,6 +44,15 @@ public class Puzzle_Yapboz_Screen extends ApiDemosScreen{
     public WebElement turkSanatEseri;
     @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Türk Sanatı Serisi\")")
     public WebElement turkSanatEseriText;
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Panaromik\")")
+    public WebElement panaromik;
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Şehirler ve Yapılar Serisi\")")
+    public WebElement sehirlerYapilar;
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Şehirler ve Yapılar Serisi\")")
+    public WebElement sehirlerYapilarTitle;
+    @FindBy(id = "com.mobisoft.kitapyurdu:id/imageViewBigLogo")
+    public WebElement logo;
+
 
     public Puzzle_Yapboz_Screen() throws MalformedURLException {
     }

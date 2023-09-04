@@ -11,6 +11,7 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,12 +24,7 @@ import static utilities.Driver.driver;
 
 public class ReusableMethods {
 
-    public static void scrollTo(String textFromOutSide) throws MalformedURLException {
-        AppiumBy.ByAndroidUIAutomator permissionElement = new AppiumBy.ByAndroidUIAutomator("new UiScrollable"+
-                "(new UiSelector().scrollable(true).instance(0)."+
-                "scrollIntoView(new UiSelector()"+".textMatches(\""+textFromOutSide+"\").instance(0)");
-        driver.findElement(permissionElement);
-    }
+
     public static void tapOnElementWithText(String text) {
         List<WebElement> mobileElementList = Driver.getDriver().findElements(By.className("android.widget.TextView"));
         for (WebElement page: mobileElementList) {
@@ -160,23 +156,16 @@ public class ReusableMethods {
         driver.perform(Collections.singletonList(sequence));
     }
 
-    /**
-     * buradaki 0,25 şu şekildedir; imleç ekranın ortasında yani 0,50 de,
-     * y ekseninde 0,25 seçtiğimizde 0,50 den 0,25 e çekiyor yani aşağı  kayıyor.
-     * Eğer 0,75 deseydik ters yönde  kaydıracaktı. Ne kadar kaydıracağı ise Duration.ofMillis
-     * teki değerlere göre değişiyor. İlk Duration.ofMillis ile 100 milisaniye parmak telefon
-     * üstünde basılı tutulur. İkinci Duration.ofMillis ile 300 milisaniye süresinde
-     * parmak x-y koordinatlarında hareket ettirilir.
-     * @param driver yazılmalı buraya
-     * @param scroll işlemi kaç kez yapılacağı yazılır. Burada default 1 yeterlidir.
-     * @throws InterruptedException
-     */
     public static void scroll(AppiumDriver driver, int scroll) throws InterruptedException {
         Dimension size = driver.manage().window().getSize();
         int startX = size.getWidth() / 2 ;
         int startY = size.getHeight() / 2 ;
         int endX = startX;
         int endY = (int) (size.getHeight()*0.25);
+        //buradaki 0,25 şu şekildedir; imleç ekranın ortasında yani 0,50 de,
+        // y ekseninde 0,25 seçtiğimizde 0,50 den 0,25 e çekiyor yani aşağı  kayıyor.
+        // Eğer 0,75 deseydik ters yönde  kaydıracaktı. Ne kadar kaydıracağı ise değişiyor.
+
 
         PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
 
@@ -192,23 +181,16 @@ public class ReusableMethods {
         Thread.sleep(3000);
     }
 
-    /**
-     * Swipe işlemi. yani ekranı yana kaydırma.
-     *   Ne kadar kaydıracağı ise Duration.ofMillis
-     * teki değerlere göre değişiyor. İlk Duration.ofMillis ile 400 milisaniye parmak telefon
-     * üstünde basılı tutulur. İkinci Duration.ofMillis ile 100 milisaniye süresinde
-     * parmak x-y koordinatlarında hareket ettirilir.
-     * @param driver yazılmalı buraya
-     * @param scroll işlemi kaç kez yapılacağı yazılır. Burada default 1 yeterlidir.
-     * @throws InterruptedException
-     */
+    //Sağa kaydırma
     public static void scrollHorizontal(AppiumDriver driver, int scroll) throws InterruptedException {
         Dimension size = driver.manage().window().getSize();
         int startX = size.getWidth() / 2 ;
         int startY = size.getHeight() / 2 ;
         int endX = (int) (size.getWidth()*0.25);
         int endY = startY;
-
+        //buradaki 0,25 şu şekildedir; imleç ekranın ortasında yani 0,50 de,
+        // x ekseninde 0,25 seçtiğimizde 0,50 den 0,25 e çekiyor yani sola  kayıyor.
+        // Eğer 0,75 deseydik ters yönde  kaydıracaktı. Ne kadar kaydıracağı ise değişiyor.
 
 
         PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
@@ -382,38 +364,40 @@ public class ReusableMethods {
     public static void urunDogrula(String locate) throws InterruptedException {
         Set<String> elements = new HashSet();
         List<WebElement> list = null;
-        String count = Driver.getDriver().findElement(By.xpath(locate)).getText();
-        int actualElementSize = -1;
+        String count = Driver.getDriver().findElement(By.xpath(locate)).getAttribute("text");
+        Integer expectedElementSize = Integer.parseInt(count.replaceAll("[^0-9]", ""));
+        System.out.println("count = " + expectedElementSize);
+        Integer actualElementSize = -1;
 
-        int expectedElementSize;
+        int size=0;
         do {
-            for(expectedElementSize = 0; expectedElementSize < 4; ++expectedElementSize) {
+            for(size = 0; size < 4; ++size) {
                 try {
                     list = Driver.getDriver().findElements(By.xpath("//android.widget.TextView[@resource-id='com.mobisoft.kitapyurdu:id/textViewProductName']"));
-                    elements.add(((WebElement)list.get(expectedElementSize)).getAttribute("text"));
+                    elements.add(((WebElement)list.get(size)).getAttribute("text"));
                 } catch (Exception var7) {
                 }
             }
 
-            if ((list.size() / 4) != 1) {
+            if (expectedElementSize.equals(actualElementSize)) {
                 break;
             }
 
             scroll(Driver.getDriver(), 1);
             actualElementSize = elements.size();
-            expectedElementSize = Integer.parseInt(count.replaceAll("[^0-9]", ""));
+
 
         } while(actualElementSize != expectedElementSize);
+        System.out.println("actualElementSize = " + actualElementSize);
+        System.out.println("expectedElementSize = " + expectedElementSize);
 
         Assert.assertEquals(actualElementSize , expectedElementSize);
     }
-    /**
-     * bu metot UiSelector cinsinden locate dondurur
-     * @param text locate alinacak elementin text attribute icinde yazan metindir
-     * @return
-     */
-    public static By locateElementByText(String text){
-        return AppiumBy.androidUIAutomator("new UiSelector().text(\""+text+"\")");
+    public static void scrollTo(String textFromOutSide) throws MalformedURLException {
+        AppiumBy.ByAndroidUIAutomator permissionElement = new AppiumBy.ByAndroidUIAutomator("new UiScrollable"+
+                "(new UiSelector().scrollable(true).instance(0)."+
+                "scrollIntoView(new UiSelector()"+".textMatches(\""+textFromOutSide+"\").instance(0)");
+        driver.findElement(permissionElement);
     }
 
     /**
@@ -423,36 +407,18 @@ public class ReusableMethods {
     public static void scrollForMobile(WebElement element) throws MalformedURLException {
         String previousPageSource="";
         while(isElementNotEnabled(element) && isNotEndOfPage(previousPageSource)){
-            previousPageSource=Driver.getDriver().getPageSource();
+            previousPageSource=driver.getPageSource();
             performScroll();
 
         }
     }
-    public static void performScroll() throws MalformedURLException {
-        Dimension size= Driver.getDriver().manage().window().getSize();
-        int startX= size.getWidth()/2;
-        int endX= size.getWidth()/2;
-        int startY= size.getHeight()/2;
-        int endY= (int)(size.getWidth()*0.25);
-        performScrollUsingSequence(startX, startY, endX, endY);
-    }
-    private static void performScrollUsingSequence(int startX, int startY, int endX, int endY) throws MalformedURLException {
-        PointerInput finger=new PointerInput(PointerInput.Kind.TOUCH, "first-finger");
-        Sequence sequence=new Sequence(finger,0)
-                .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY))
-                .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), endX, endY))
-                .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-        ((AppiumDriver)(Driver.getDriver())).perform(Collections.singletonList(sequence));
-    }
-
     /**
      * elementi listin icine alıp, listin boyutunu olcer. list bos ise true dondurecek.scrollForMobile() ile kullanilir
      * @param element element locate yazilmali
      * @return true yada false doner
      */
     private static boolean isElementNotEnabled(WebElement element) throws MalformedURLException {
-        List<WebElement> elements=Driver.getDriver().findElements((By) element);
+        List<WebElement> elements=driver.findElements((By) element);
         boolean enabled;
         if (elements.size() <1) enabled = true;
         else enabled = false;
@@ -466,6 +432,32 @@ public class ReusableMethods {
      */
     private static boolean isNotEndOfPage(String previousPageSource) throws MalformedURLException {
         return ! previousPageSource.equals(driver.getPageSource());
+    }
+
+    public static void performScroll() throws MalformedURLException {
+        Dimension size= driver.manage().window().getSize();
+        int startX= size.getWidth()/2;
+        int endX= size.getWidth()/2;
+        int startY= size.getHeight()/2;
+        int endY= (int)(size.getWidth()*0.25);
+        performScrollUsingSequence(startX, startY, endX, endY);
+    }
+    private static void performScrollUsingSequence(int startX, int startY, int endX, int endY) throws MalformedURLException {
+        PointerInput finger=new PointerInput(PointerInput.Kind.TOUCH, "first-finger");
+        Sequence sequence=new Sequence(finger,0)
+                .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY))
+                .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(finger.createPointerMove(Duration.ofMillis(300), PointerInput.Origin.viewport(), endX, endY))
+                .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        ((AppiumDriver)(driver)).perform(Collections.singletonList(sequence));
+    }
+    /**
+     * bu metot UiSelector cinsinden locate dondurur
+     * @param text locate alinacak elementin text attribute icinde yazan metindir
+     * @return
+     */
+    public static By locateElementByText(String text){
+        return AppiumBy.androidUIAutomator("new UiSelector().text(\""+text+"\")");
     }
 
 }
