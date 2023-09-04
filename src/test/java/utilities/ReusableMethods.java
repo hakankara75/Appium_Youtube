@@ -182,7 +182,7 @@ public class ReusableMethods {
     }
 
     //Sağa kaydırma
-    public static void scrollHorizontal(AppiumDriver driver, int scroll) throws InterruptedException {
+    public static void swipe(AppiumDriver driver, int scroll) throws InterruptedException {
         Dimension size = driver.manage().window().getSize();
         int startX = size.getWidth() / 2 ;
         int startY = size.getHeight() / 2 ;
@@ -199,8 +199,8 @@ public class ReusableMethods {
             Sequence sequence = new Sequence(finger1,1).
                     addAction(finger1.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(), startX, startY)).
                     addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg())).
-                    addAction(new Pause(finger1, Duration.ofMillis(400))).
-                    addAction(finger1.createPointerMove(Duration.ofMillis(100),PointerInput.Origin.viewport(),endX,endY)).
+                    addAction(new Pause(finger1, Duration.ofMillis(100))).
+                    addAction(finger1.createPointerMove(Duration.ofMillis(400),PointerInput.Origin.viewport(),endX,endY)).
                     addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
             driver.perform(Collections.singletonList(sequence));}

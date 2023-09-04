@@ -25,7 +25,7 @@ Feature: Puzzle_Yapboz_Menusu
     Then "6-48 PARÇA" menusu tiklandi
     And "6-48 PARÇA" bolumunde oldugu dogrulandi
     And Sayfada "yazilan" sayida urun oldugu dogrulandi
-  @hepsi
+  @swipe
   Scenario: Swipe Testi
     Given "Ahşap Puzzle" menusu tiklandi
     When "Ahşap Puzzle" bolumunde oldugu dogrulandi

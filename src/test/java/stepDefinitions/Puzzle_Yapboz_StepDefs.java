@@ -182,7 +182,7 @@ public class Puzzle_Yapboz_StepDefs extends Screens {
 
     @And("Urunu swipe yapti")
     public void urunuSwipeYapti() throws InterruptedException {
-        scrollHorizontal(Driver.getDriver(), 5);
+        swipe(Driver.getDriver(), 5);
     }
 
     @And("Sayfada kac urun oldugu yazdirildi")
