@@ -11,36 +11,6 @@ import java.net.URL;
 import java.time.Duration;
 
 public class Driver {
-//    public static UiAutomator2Options options;
-//    public static Driver driver;
-//    public static AppiumDriver getDriver() {
-//
-//        AppiumDriver driver = null;
-//
-//        // DesiredCapabilities ayarları
-//        DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "ANDROID");
-//        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
-//        capabilities.setCapability(MobileCapabilityType.APP, "C:\\Users\\HakanBatirhan\\IdeaProjects\\Appium_Cucumber\\src\\Apps\\hepsiburada.apk");
-//        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UIAutomator2");
-//
-//        try {
-//            // Appium sunucusuna bağlantı URL'si
-//            URL appiumServerURL = new URL("http://127.0.0.1:4723/");
-//
-//            // AndroidDriver nesnesini başlat
-//            driver = new AndroidDriver(appiumServerURL, capabilities);
-//
-//            // Bağlantı başarılı mesajı
-//            System.out.println("Appium sunucusuna başarıyla bağlandı.");
-//        } catch (Exception e) {
-//            System.err.println("Bağlantı hatası: " + e.getMessage());
-//        }
-//
-//        return driver;
-//    }
-
-
     private static UiAutomator2Options options;
     static AppiumDriver driver;
 
@@ -50,10 +20,15 @@ public class Driver {
 
             switch (ConfigReader.getProperty("platformName")) {
                 case "Android":
-                    options = new UiAutomator2Options();
-                    options.setApp(ConfigReader.getProperty("app"));
-//                    options.setAppPackage("com.touchboarder.android.api.demos");  //Uygulama paketi adini ayarlar
-//                    options.setAppActivity("com.touchboarder.androidapidemos.MainActivity"); //Uygulama aktivite adini ayarla
+                  options = new UiAutomator2Options();
+
+
+             //  options.setApp(ConfigReader.getProperty("app"));
+               options.setApp(ConfigReader.getProperty("app"));
+
+//                   options.setAppPackage("com.mobisoft.kitapyurdu");  //Uygulama paketi adini ayarlar
+//                   options.setAppActivity("com.mobisoft.kitapyurdu.main.MainActivity"); //Uygulama aktivite adini ayarla
+
                     options.setDeviceName(ConfigReader.getProperty("device"));    //Cihaz UDID'sini ayarla bu kodu cmd'de "adb devices" yazarak buluruz
                     options.setNoReset(true);   //sifirlama islemini kapat
                     options.setCapability("shouldTerminateApp", true);   // appi kapatmak için
@@ -103,7 +78,12 @@ public class Driver {
             return false;
         }
     }
+
+    public static void quitAppiumDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
 }
-
-
 
