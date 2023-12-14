@@ -62,7 +62,7 @@ public class HooksAppium {
         if (scenario.isFailed()) {
             scenario.attach(screenshot, "image/png", "screenshots");
         }
-        // Driver.quitAppiumDriver();
+        Driver.quitAppiumDriver();
     }
 
     public void forceStopAppiumServer() {

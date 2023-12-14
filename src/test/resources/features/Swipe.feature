@@ -1,3 +1,4 @@
+@swipeApiDemos
 Feature: Api Demos swipe
   Scenario: Swipe test
     Given App yuklensin
